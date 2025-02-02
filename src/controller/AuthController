@@ -1,0 +1,46 @@
+const bcrypt = require("bcryptjs");
+
+const db = require("../db/dataBase");
+const jwt = require("jsonwebtoken");
+env = require("dotenv").config();
+
+const {ApiError} = require("../error/CustomError");
+
+exports.register =  async (req, res) => {
+    const { email, password } = req.body;
+    if (email === "" || password === "") {
+        res.status(422).send(new ApiError('error', "Favor, preencher os dados de registro", "O campo email ou senha não estão preenchidos", ""));
+        return;
+      }
+    
+      const hashedPassword = await bcrypt.hash(password, 10);
+      try {
+        await db.execute("INSERT INTO users (email, password) VALUES (?, ?)", [email, hashedPassword]);
+        res.status(201).send("User registered");
+      } catch (error) {
+        res.status(500).send(new ApiError('error', error.sqlMessage, error.sql, ""));
+      }
+};
+
+exports.login = async (req, res) => {
+    const { email, password } = req.body;
+
+    if (email === "" || password === "") {
+      res.status(422).send(new ApiError('error', "Favor, preencher os dados para o login.", "O campo email ou senha não estão preenchidos", ""));
+      return;
+    }
+  
+    try {
+      const [rows] = await db.execute("SELECT * FROM users WHERE email = ?", [email]);
+      if (rows.length === 0 || !(await bcrypt.compare(password, rows[0].password))) {
+        return res.status(401).send("Invalid credentials");
+      }
+      const token = jwt.sign({ email }, process.env.JWT_SECRET, { expiresIn: "1h" });
+  
+      res.json({ token });
+    } catch (error) {
+      console.log(error);
+      res.status(500).send(new ApiError('error', error.sqlMessage, error.sql, ""));
+  //    res.status(500).send("Error logging in");
+    }
+};
