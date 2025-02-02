@@ -23,3 +23,22 @@ exports.buscarTodos =  async (req, res) => {
     res.status(500).send(new ApiError('error', error.sqlMessage, error.sql, ""));
   }
 };
+
+
+// @Query("select c from Consulta c order by c.dataHoraConsulta DESC")
+// List<Consulta> buscarTodos();
+
+// @Query("select distinct(YEAR(a.dataHoraConsulta)) from Consulta a")
+// List<Integer> buscarAnos();
+
+// @Query("select c from Consulta c where c.paciente.id = :idPaciente order by c.dataHoraConsulta DESC")
+// List<Consulta> buscarConsultasPorPaciente(@Param("idPaciente") String idPaciente);
+
+// @Query("select c from Consulta c where c.paciente.id = :idPaciente and c.dataHoraConsulta = :dataHoraConsulta")
+// Consulta buscarConsultaExistente(@Param("idPaciente") String idPaciente, @Param("dataHoraConsulta") Date dataHoraConsulta);
+
+// @Query("select c from Consulta c where c.paciente.id = :idPaciente and c.dataCobranca = :dataCobranca")
+// List<Consulta> buscarConsultasCobranca(@Param("idPaciente") String idPaciente, @Param("dataCobranca") Date dataCobranca);
+
+// @Query("select count(c.id) from Consulta c where c.paciente.id = :idPaciente and c.dataCobranca = :dataCobranca and recebido = false")
+// Long consultasAPagar(@Param("idPaciente") String idPaciente, @Param("dataCobranca") Date dataCobranca);

@@ -23,3 +23,7 @@ exports.buscarTodos =  async (req, res) => {
     res.status(500).send(new ApiError('error', error.sqlMessage, error.sql, ""));
   }
 };
+
+
+// @Query("select e from Endereco e where e.paciente.id = :idPaciente order by e.logradouro ASC")
+// List<Endereco> buscarEnderecosPaciente(@Param("idPaciente") String idPaciente);

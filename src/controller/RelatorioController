@@ -1,0 +1,150 @@
+const bcrypt = require("bcryptjs");
+
+const db = require("../db/dataBase");
+const jwt = require("jsonwebtoken");
+env = require("dotenv").config();
+
+const {ApiError} = require("../error/CustomError");
+
+exports.buscarTodos =  async (req, res) => {
+      try {
+        const [rows] = await db.execute("SELECT * FROM customers");
+        res.status(200).json(rows); // Return JSON response
+      } catch (error) {
+        res.status(500).send(new ApiError('error', error.sqlMessage, error.sql, ""));
+      }
+};
+
+exports.buscarTodos =  async (req, res) => {
+  try {
+    const [rows] = await db.execute("SELECT * FROM customers");
+    res.status(200).json(rows); // Return JSON response
+  } catch (error) {
+    res.status(500).send(new ApiError('error', error.sqlMessage, error.sql, ""));
+  }
+};
+
+
+// 	@Query("""
+// 			select c from Consulta c, Paciente p
+// 				where c.paciente.id = :idPaciente
+// 			    and YEAR(date(c.dataHoraConsulta)) = :ano
+// 			    and MONTH(date(c.dataHoraConsulta)) = :mes
+// 			    and p.id = c.paciente.id
+// 			    order by c.dataHoraConsulta DESC
+// 			""")
+// 	List<Consulta> buscarRelatorioPaciente(@Param("idPaciente") String idPaciente, @Param("ano") Integer ano, @Param("mes") Integer mes);
+
+// 	@Query("""
+// 			Select c from Consulta c, Paciente p
+// 				where YEAR(date(c.dataCobranca)) = :ano
+// 			    and MONTH(date(c.dataCobranca)) = :mes
+// 			    and p.id = c.paciente.id
+// 			    order by c.dataCobranca DESC
+// 			""")
+// 	List<Consulta> buscarConsultasReceberMes(@Param("ano") Integer ano, @Param("mes") Integer mes);
+
+// 	@Query("""
+// 			select count(ia.id) from AgendaItem ia
+// 				where ia.paciente.id = :idPaciente
+// 				and ia.realizado = false
+// 			    and YEAR(date(ia.data)) = :ano
+// 			    and MONTH(date(ia.data)) = :mes
+// 			""")
+// 	Integer quantidadeConsultasNaoRealizadas(@Param("idPaciente") String idPaciente, @Param("ano") Integer ano, @Param("mes") Integer mes);
+
+// 	@Query("""
+// 			select sum(c.valorConsulta) from Consulta c
+// 			    where YEAR(date(c.dataCobranca)) = :ano
+// 			    and MONTH(date(c.dataCobranca)) = :mes
+// 			    order by c.dataCobranca ASC
+
+// 			""")
+// 	Double valorTotalReceber(@Param("ano") Integer ano, @Param("mes") Integer mes);
+
+// 	@Query("""
+// 			select new com.healthmanager.bean.ListaAtendimentosAnualBean(p.nome, count(p.id), sum(c.valorConsulta), sum(c.despesaConsulta)) from Consulta c, Paciente p
+// 				where c.paciente.id = p.id
+// 			    and month(c.dataHoraConsulta) = :numeroMes
+// 			    and year(c.dataHoraConsulta) = :ano
+// 			    group by p.id
+// 			    order by count(p.id) desc
+// 			""")
+// 	List<ListaAtendimentosAnualBean> buscarAtendimentosAnual(@Param("ano") Integer ano, @Param("numeroMes") Integer mes);
+
+// 	@Query("""
+// 			select pc from PacienteRelatorio pc
+// 			    where pc.paciente.id = :idPaciente
+// 			    order by pc.dataRelatorio ASC
+// 			""")
+// 	List<PacienteRelatorio> buscarRelatoriosEmitidosPaciente(@Param("idPaciente") String idPaciente);
+
+// 	@Query("""
+// 			select pc from PacienteRelatorio pc
+// 			    where pc.dataRelatorio <= :dataLembrete
+// 			    and pc.enviado = false
+// 			    order by pc.dataRelatorio ASC
+// 			""")
+// 	List<PacienteRelatorio> buscarRelatoriosAgenda(@Param("dataLembrete") Date dataLembrete);
+	
+// }
+// 			""")
+// 	List<PacienteRelatorio> buscarRelatoriosEmitidosPaciente(@Param("idPaciente") String idPaciente);
+
+// 	@Query("""
+// 			select pc from PacienteRelatorio pc
+// 			    where pc.dataRelatorio <= :dataLembrete
+// 			    and pc.enviado = false
+// 			    order by pc.dataRelatorio ASC
+// 			""")
+// 	List<PacienteRelatorio> buscarRelatoriosAgenda(@Param("dataLembrete") Date dataLembrete);
+	
+// }
+// 			""")
+// 	List<PacienteRelatorio> buscarRelatoriosEmitidosPaciente(@Param("idPaciente") String idPaciente);
+
+// 	@Query("""
+// 			select pc from PacienteRelatorio pc
+// 			    where pc.dataRelatorio <= :dataLembrete
+// 			    and pc.enviado = false
+// 			    order by pc.dataRelatorio ASC
+// 			""")
+// 	List<PacienteRelatorio> buscarRelatoriosAgenda(@Param("dataLembrete") Date dataLembrete);
+	
+// }
+// 			""")
+// 	List<PacienteRelatorio> buscarRelatoriosEmitidosPaciente(@Param("idPaciente") String idPaciente);
+
+// 	@Query("""
+// 			select pc from PacienteRelatorio pc
+// 			    where pc.dataRelatorio <= :dataLembrete
+// 			    and pc.enviado = false
+// 			    order by pc.dataRelatorio ASC
+// 			""")
+// 	List<PacienteRelatorio> buscarRelatoriosAgenda(@Param("dataLembrete") Date dataLembrete);
+	
+// }
+// 			""")
+// 	List<PacienteRelatorio> buscarRelatoriosEmitidosPaciente(@Param("idPaciente") String idPaciente);
+
+// 	@Query("""
+// 			select pc from PacienteRelatorio pc
+// 			    where pc.dataRelatorio <= :dataLembrete
+// 			    and pc.enviado = false
+// 			    order by pc.dataRelatorio ASC
+// 			""")
+// 	List<PacienteRelatorio> buscarRelatoriosAgenda(@Param("dataLembrete") Date dataLembrete);
+	
+// }
+// 			""")
+// 	List<PacienteRelatorio> buscarRelatoriosEmitidosPaciente(@Param("idPaciente") String idPaciente);
+
+// 	@Query("""
+// 			select pc from PacienteRelatorio pc
+// 			    where pc.dataRelatorio <= :dataLembrete
+// 			    and pc.enviado = false
+// 			    order by pc.dataRelatorio ASC
+// 			""")
+// 	List<PacienteRelatorio> buscarRelatoriosAgenda(@Param("dataLembrete") Date dataLembrete);
+	
+// }

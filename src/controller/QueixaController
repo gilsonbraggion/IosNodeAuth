@@ -23,3 +23,15 @@ exports.buscarTodos =  async (req, res) => {
     res.status(500).send(new ApiError('error', error.sqlMessage, error.sql, ""));
   }
 };
+
+
+// @Query("select e from Queixa e where e.removido = false order by e.nome ASC")
+// List<Queixa> buscarAtivos();
+
+// @Query("""
+//     select pq from PacienteQueixas pq, Queixa q
+//       where pq.paciente_id = :idPaciente
+//       and pq.queixa_id = q.id
+//       order by q.nome ASC
+//     """)
+// List<PacienteQueixas> buscarQueixasPorPaciente(@Param("idPaciente") String idPaciente);

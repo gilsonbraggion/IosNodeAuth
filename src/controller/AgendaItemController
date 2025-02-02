@@ -23,3 +23,13 @@ exports.buscarTodos =  async (req, res) => {
     res.status(500).send(new ApiError('error', error.sqlMessage, error.sql, ""));
   }
 };
+
+
+// @Query("select a from AgendaItem a where a.agenda.id = :idAgenda order by a.data DESC")
+// List<AgendaItem> buscarItensPorAgenda(@Param("idAgenda") String idAgenda);
+
+// @Query("select a from AgendaItem a where a.agenda.id = :idAgenda  and a.compromisso.id = :idCompromisso order by a.data DESC")
+// List<AgendaItem> buscarItensPorAgendaCompromisso(@Param("idAgenda") String idAgenda, @Param("idCompromisso") String idCompromisso);
+
+// @Query("select a from AgendaItem a where date(a.data) = :dataSelecionada")
+// List<AgendaItem> buscarItensPorData(@Param("dataSelecionada") Date dataSelecionada);

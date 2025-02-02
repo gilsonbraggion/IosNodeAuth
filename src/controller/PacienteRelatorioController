@@ -23,3 +23,7 @@ exports.buscarTodos =  async (req, res) => {
     res.status(500).send(new ApiError('error', error.sqlMessage, error.sql, ""));
   }
 };
+
+
+// @Query("select count(pr.id) from PacienteRelatorio pr where pr.paciente.id = :idPaciente")
+// 	Long buscarRelatoriosPorPaciente(@Param("idPaciente") String idPaciente);

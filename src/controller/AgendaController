@@ -23,3 +23,13 @@ exports.buscarTodos =  async (req, res) => {
     res.status(500).send(new ApiError('error', error.sqlMessage, error.sql, ""));
   }
 };
+
+
+// @Query("select a from Agenda a where a.mes = :mes and a.ano = :ano order by a.ano ASC")
+// Agenda buscarPorMesAno(@Param("mes") Meses mes, @Param("ano") Integer ano);
+
+// @Query("select distinct(a.ano) from Agenda a")
+// List<Integer> buscarAnos();
+
+// @Query("select a from Agenda a order by a.ano ASC")
+// List<Agenda> buscarTodos();

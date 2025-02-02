@@ -24,10 +24,7 @@ exports.buscarTodos =  async (req, res) => {
   }
 };
 
-
-
-// @Query("select e from Compromisso e where e.removido = false order by e.nome ASC")
-// List<Compromisso> buscarAtivos();
-
-// @Query("select e from Compromisso e where e.nome = :nomeCompromisso")
-// Compromisso buscarPorNome(@Param(value = "nomeCompromisso") String nomeCompromisso);
+// Optional<Usuario> findByEmail(String email);
+	
+// @Query("select e from Usuario e where e.id <> :idUsuarioLogado")
+// List<Usuario> buscarUsuariosForaLogado(@Param("idUsuarioLogado") String idUsuarioLogado);
