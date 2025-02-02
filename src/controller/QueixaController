@@ -9,7 +9,17 @@ const {ApiError} = require("../error/CustomError");
 exports.buscarTodos =  async (req, res) => {
       try {
         const [rows] = await db.execute("SELECT * FROM queixa");
-        res.status(200).json(rows); // Return JSON response
+
+        // Log raw output to check data type
+        console.log(rows.map(row => ({ removido: row.removido, type: typeof row.removido })));
+
+        const formattedRows = rows.map(row => ({
+            ...row,
+            removido: row.removido[0] === 1
+        }));
+
+
+        res.status(200).json(formattedRows); // Return JSON response
       } catch (error) {
         res.status(500).send(new ApiError('error', error.sqlMessage, error.sql, ""));
       }
