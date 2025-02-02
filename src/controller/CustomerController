@@ -14,3 +14,12 @@ exports.buscarTodos =  async (req, res) => {
         res.status(500).send(new ApiError('error', error.sqlMessage, error.sql, ""));
       }
 };
+
+exports.buscarTodos =  async (req, res) => {
+  try {
+    const [rows] = await db.execute("SELECT * FROM customers");
+    res.status(200).json(rows); // Return JSON response
+  } catch (error) {
+    res.status(500).send(new ApiError('error', error.sqlMessage, error.sql, ""));
+  }
+};

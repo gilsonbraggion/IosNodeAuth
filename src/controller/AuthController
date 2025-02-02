@@ -18,7 +18,7 @@ exports.register =  async (req, res) => {
         await db.execute("INSERT INTO users (email, password) VALUES (?, ?)", [email, hashedPassword]);
         res.status(201).send("User registered");
       } catch (error) {
-        res.status(500).send(new ApiError('error', error.sqlMessage, error.sql, ""));
+        res.status(409).send(new ApiError('error', error.sqlMessage, error.sql, ""));
       }
 };
 
@@ -40,7 +40,7 @@ exports.login = async (req, res) => {
       res.json({ token });
     } catch (error) {
       console.log(error);
-      res.status(500).send(new ApiError('error', error.sqlMessage, error.sql, ""));
+      res.status(422).send(new ApiError('error', error.sqlMessage, error.sql, ""));
   //    res.status(500).send("Error logging in");
     }
 };
