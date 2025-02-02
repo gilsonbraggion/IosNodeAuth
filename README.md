@@ -1,2 +1,2 @@
-# IosNodeAuth
-Project to use an Ios view app and authenticating in a Node Application
+# NodeJwtAuth
+Project to generate users and authenticate on a note app.
