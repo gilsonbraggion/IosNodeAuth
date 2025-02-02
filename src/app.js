@@ -1,9 +1,9 @@
 const express = require("express");
 const cors = require("cors");
 
-const authRoutes = require("./routes/authRoute");
-const customerRoutes = require("./routes/customerRoute");
-// const customerRoutes = require("./routes/customerRoutes");
+const authRoute = require("./routes/authRoute");
+const customerRoute = require("./routes/customerRoute");
+const queixaRoute = require("./routes/queixaRoute");
 
 const app = express();
 
@@ -11,7 +11,9 @@ app.use(cors());
 app.use(express.json());
 
 // Register routes
-app.use("/api/auth", authRoutes);
-app.use("/api/customer", customerRoutes);
+app.use("/api/auth", authRoute);
+app.use("/api/customer", customerRoute);
+app.use("/api/queixa", queixaRoute);
+
 
 module.exports = app;

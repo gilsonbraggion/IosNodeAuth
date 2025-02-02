@@ -8,30 +8,37 @@ const {ApiError} = require("../error/CustomError");
 
 exports.buscarTodos =  async (req, res) => {
       try {
-        const [rows] = await db.execute("SELECT * FROM customers");
+        const [rows] = await db.execute("SELECT * FROM queixa");
         res.status(200).json(rows); // Return JSON response
       } catch (error) {
         res.status(500).send(new ApiError('error', error.sqlMessage, error.sql, ""));
       }
 };
 
-exports.buscarTodos =  async (req, res) => {
+exports.buscarAtivos =  async (req, res) => {
   try {
-    const [rows] = await db.execute("SELECT * FROM customers");
+    const [rows] = await db.execute("select * from Queixa where removido = false order by nome ASC");
     res.status(200).json(rows); // Return JSON response
   } catch (error) {
     res.status(500).send(new ApiError('error', error.sqlMessage, error.sql, ""));
   }
 };
 
+exports.buscarPorPaciente =  async (req, res) => {
 
-// @Query("select e from Queixa e where e.removido = false order by e.nome ASC")
-// List<Queixa> buscarAtivos();
+  const { idPaciente } = req.params; // Get ID from URL
 
-// @Query("""
-//     select pq from PacienteQueixas pq, Queixa q
-//       where pq.paciente_id = :idPaciente
-//       and pq.queixa_id = q.id
-//       order by q.nome ASC
-//     """)
-// List<PacienteQueixas> buscarQueixasPorPaciente(@Param("idPaciente") String idPaciente);
+  let queryPorPaciente = 
+  `select pq.* from Paciente_Queixas pq, Queixa q
+    where pq.paciente_id = ?
+    and pq.queixa_id = q.id
+    order by q.nome ASC`;
+
+
+  try {
+    const [rows] = await db.execute(queryPorPaciente, [idPaciente]);
+    res.status(200).json(rows); // Return JSON response
+  } catch (error) {
+    res.status(500).send(new ApiError('error', error.sqlMessage, error.sql, ""));
+  }
+};
